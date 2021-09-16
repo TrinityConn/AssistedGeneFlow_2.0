@@ -15,5 +15,5 @@ awk '{gsub("NW_","");print}' AGF_NoC.bim>AGF_NoC2.bim
 sed 's/\.1//' AGF_NoC2.bim>AGF_NoC.bim
 
 #run loop
-for K in 2 3 4 5 6 7 8; 
+for K in 2 3 4 5 6 7 8 9 10 11; 
 	do admixture --cv AGF_NoC.bed $K | tee log${K}.out; done
