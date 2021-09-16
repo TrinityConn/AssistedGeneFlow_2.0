@@ -1,0 +1,19 @@
+#activate admixture environment in server 
+
+#convert vcf to bed file 
+
+bgzip AGF_NoClones.vcf 
+
+tabix AGF_NoClones.vcf 
+
+plink2 --vcf AGF_NoClones.vcf.gz --make-bed --out AGF_NoC 
+
+
+#bim file preprocessing 
+
+awk '{gsub("NW_","");print}' AGF_NoC.bim>AGF_NoC2.bim
+sed 's/\.1//' AGF_NoC2.bim>AGF_NoC.bim
+
+#run loop
+for K in 2 3 4 5 6 7 8; 
+	do admixture --cv AGF_NoC.bed $K | tee log${K}.out; done
